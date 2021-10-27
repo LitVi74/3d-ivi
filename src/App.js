@@ -38,11 +38,18 @@ function App (props) {
     let stat = statistic.slice();
 
     if (arr.length === 0) {
-      props.result.forEach((device) => {
+      props.devices.forEach((device) => {
         device.o.forEach((dateStat) => {
           getData(dateStat.n, dateStat.o, stat);
         })
       });
+    } else {
+      arr.forEach((id) => {
+        props.devices.find((device) => device.n === id)
+         .o.forEach((dateStat) => {
+           getData(dateStat.n, dateStat.o, stat);
+        });
+      })
     }
 
     setArr(stat);
@@ -58,11 +65,18 @@ function App (props) {
       stat[statIndex].data[dataIndex] += age.v;
     })
   }
+
+  function getDevicesArray (devicesArr) {
+    getResultArray(devicesArr);
+  }
   
 
   return (
     <div>
-      <Select result={props.result}/>
+      <Select
+        getDevicesArray={getDevicesArray}
+        devices={props.devices}
+      />
   
       <Bar statistic={arr} />
     </div>

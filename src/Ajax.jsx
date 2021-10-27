@@ -29,7 +29,7 @@ const Ajax = () => {
 	} else {
 		return (
 			<div>
-				<App result={items} />
+				<App devices={items} />
 			</div>
 		);
 	}
